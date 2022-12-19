@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title>Hottest Celebrity Picker</title>
+    <style>
+      /* Set the maximum width and height of the images to 350 pixels */
+      img {
+        max-width: 350px;
+        max-height: 350px;
+        min-width: 250px;
+        min-height: 250px;
+      }
+
+      /* Add a style for the container element of the images and the h1 element */
+      #image-container, h1 {
+        text-align: center;  /* horizontally center the content inside the element */
+      }
+
+      body {
+         background: linear-gradient(to bottom, blue, purple);
+      }    
+      
+      h1 {
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 40px;
+          color: red;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      /* Add a style for the text below the images */
+      .image-text {
+        text-align: center;
+        color: white;
+      }
+
+      /* Add a style for the div element that contains each image and text */
+      .image-div {
+        display: inline-block;
+        margin: 25px;
+        vertical-align: top;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hottest Celebrity Picker</h1>
+    <div id="image-container">
+      <div class="image-div">
+        <img id="image1" src="" />
+        <p class="image-text" id="image1-text"></p>
+      </div>
+      <div class="image-div">
+        <img id="image2" src="" />
+        <p class="image-text" id="image2-text"></p>
+      </div>
+    </div>
+    <script>
+      // Array of image file names
+      const images = ["Taylor Swift.jpg", "Mila Kunis.jpg", "Scarlett Johansson.jpeg"];
+
+      // Get references to the image and text elements
+      const image1 = document.getElementById("image1");
+      const image1Text = document.getElementById("image1-text");
+      const image2 = document.getElementById("image2");
+      const image2Text = document.getElementById("image2-text");
+
+      // Set the source and text of the first image to a random image
+      const image1FileName = getRandomImage();
+      image1.src = image1FileName;
+      image1Text.textContent = image1FileName.replace(/\.[^/.]+$/, ""); // remove file extension
+
+      // Set the source and text of the second image to a random image
+      const image2FileName = getRandomImage();
+      image2.src = image2FileName;
+      image2Text.textContent = image2FileName.replace(/\.[^/.]+$/, ""); // remove file extension
+
+      // Add event listeners to the images to listen for clicks
+      image1.addEventListener("click", function() {
+        // Update the source and text of the other image to a new image
+        const newImage2FileName = getRandomImage();
+        image2.src = "../images/" + newImage2FileName;
+        image2Text.textContent = newImage2FileName;
+      });
+      image2.addEventListener("click", function() {
+        // Update the source and text
+        const newImage1FileName = getRandomImage();
+        image1.src = "../images/" + newImage1FileName;
+      });
+
+      // Function to get the file name of a random image
+      function getRandomImage() {
+        // Generate a random index between 0 and the length of the images array
+        const randomIndex = Math.floor(Math.random() * images.length);
+        // Get the file name of the image at the random index
+        const randomImage = images[randomIndex];
+        // Remove the file name of the random image from the array
+        images.splice(randomIndex, 1);
+        // Return the file name of the random image
+        return randomImage;
+      }
+    </script>
+  </body>
+</html>
